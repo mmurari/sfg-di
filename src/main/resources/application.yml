@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active:
+     - dog
+     - EN
+     - prod
+sample:
+  username: user
+  password: password
+constructorbound:
+  username: constructorBoundUser
+  password: constructorBoundpwd
+
+---
+spring:
+  profiles: prod
+sample:
+  username: produser
+  password: prodpassword

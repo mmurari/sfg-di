@@ -1,14 +1,19 @@
 package guru.springframework.sfgdi;
 
+import guru.springframework.sfgdi.config.ConstructorBindingConfig;
+import guru.springframework.sfgdi.config.SfgConfig;
 import guru.springframework.sfgdi.controllers.*;
+import guru.springframework.sfgdi.datasource.FakeDatasource;
 import guru.springframework.sfgdi.services.PrototypeBean;
 import guru.springframework.sfgdi.services.SingletonBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@EnableConfigurationProperties(ConstructorBindingConfig.class)
 @ComponentScan(basePackages = {"guru.springframework.sfgdi", "com.springframework.pets"})
 public class SfgDiApplication {
 
@@ -49,6 +54,21 @@ public class SfgDiApplication {
         System.out.println("proto1.getMyScope() = " + proto1.getMyScope());
         PrototypeBean proto2 = ctx.getBean(PrototypeBean.class);
         System.out.println("proto2.getMyScope() = " + proto2.getMyScope());
+
+        System.out.println("======== Fake DS ============");
+        FakeDatasource ds = ctx.getBean(FakeDatasource.class);
+        System.out.println("ds.getUsername = " + ds.getUsername());
+        System.out.println("ds.getPassword() = " + ds.getPassword());
+
+        System.out.println("======== SFG config ============");
+        SfgConfig config = ctx.getBean(SfgConfig.class);
+        System.out.println("config.getUsername() = " + config.getUsername());
+        System.out.println("config.getPassword() = " + config.getPassword());
+
+        System.out.println("======== Constructor Binding config ============");
+        ConstructorBindingConfig consConf = ctx.getBean(ConstructorBindingConfig.class);
+        System.out.println("config.getUsername() = " + consConf.getUsername());
+        System.out.println("config.getPassword() = " + consConf.getPassword());
     }
 
 }
